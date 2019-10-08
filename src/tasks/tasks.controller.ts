@@ -4,16 +4,12 @@ import {
   Post,
   Body,
   Param,
-  Delete,
-  Patch,
-  Query,
   ValidationPipe,
   UsePipes,
   ParseIntPipe,
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
-import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 import { Task } from './task.entity';
 
 @Controller('tasks')
@@ -28,6 +24,10 @@ export class TasksController {
   @Post()
   @UsePipes(ValidationPipe)
   createTask(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
-    return this.tasksService.createTask(createTaskDto); 
+    return this.tasksService.createTask(createTaskDto);
+  }
+
+  deleteTask(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    return this.tasksService.deleteTask(id) ;
   }
 }
