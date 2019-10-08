@@ -21,7 +21,10 @@ import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 export class TasksController {
   constructor(private tasksService: TasksService) {}
 
-  getTasks(@Query(ValidationPipe) filterDto: GetTasksFilterDto) {
+  @Get()
+  getTasks(
+    @Query(ValidationPipe) filterDto: GetTasksFilterDto,
+  ): Promise<Task[]> {
     return this.tasksService.getTasks(filterDto);
   }
 
